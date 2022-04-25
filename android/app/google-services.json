@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "523095116726",
+    "project_id": "fir-sport-1cba5",
+    "storage_bucket": "fir-sport-1cba5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523095116726:android:f75790c9067d17e8724f17",
+        "android_client_info": {
+          "package_name": "com.firebaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "523095116726-uq3li93fl0b3gqcpvkqg7p685rdjt4f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZq0dwrzgvy6UBFAXRbLr_U31hfcPpLeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523095116726-uq3li93fl0b3gqcpvkqg7p685rdjt4f8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
