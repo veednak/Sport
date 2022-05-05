@@ -1,4 +1,13 @@
 import React, {useState, useEffect} from 'react';
+import {authentication} from '../../firebase/firebase';
+import {useNavigation} from '@react-navigation/core';
+import {style} from '../styles/style';
+
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
+
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -7,14 +16,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {authentication} from '../firebase/firebase';
-import {useNavigation} from '@react-navigation/core';
-
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from 'firebase/auth';
-import {Button} from 'react-native-elements';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    width: '80%',
+    width: RFValue(270),
   },
   input: {
     marginTop: 5,
@@ -103,12 +105,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
-    width: '60%',
+    width: RFValue(220),
   },
   button: {
     alignItems: 'center',
     padding: 15,
-    width: '100%',
+    width: RFValue(200),
     backgroundColor: '#0782F9',
     borderRadius: 10,
   },
@@ -121,11 +123,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
   buttonOutlineText: {
     color: '#0782F9',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: RFValue(16),
   },
 });

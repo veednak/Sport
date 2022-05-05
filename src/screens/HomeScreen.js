@@ -1,5 +1,7 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+
 import {
   StyleSheet,
   Text,
@@ -7,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {authentication} from '../firebase/firebase';
+import {authentication} from '../../firebase/firebase';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -16,7 +18,7 @@ const HomeScreen = () => {
     authentication
       .signOut()
       .then(() => {
-        navigation.replace('Login');
+        navigation.replace(screen);
       })
       .catch(error => alert(error.message));
   };
@@ -34,18 +36,19 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.textHeader}>Личные данные</Text>
-        <Text>Возраст</Text>
-        <TextInput style={styles.input} />
         <Text>Пол</Text>
         <TextInput style={styles.input} />
-        <Text>Рост</Text>
-        <TextInput style={styles.input} />
-        <Text>Вес</Text>
-        <TextInput style={styles.input} />
+        <Text>Уровень физической подготовки</Text>
+        <TouchableOpacity onPress={pressNext} style={styles.button}>
+          <Text style={styles.buttonText}>Высокий</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={pressNext} style={styles.button}>
+          <Text style={styles.buttonText}>Средний</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={pressNext} style={styles.button}>
+          <Text style={styles.buttonText}>Низкий</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={pressNext} style={styles.button}>
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpacity>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign out</Text>
       </TouchableOpacity>
@@ -66,27 +69,28 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     marginBottom: 5,
-    fontSize: 33,
+    fontSize: RFValue(30),
   },
   input: {
-    marginBottom: 7,
+    marginBottom: 20,
     marginTop: 5,
     paddingHorizontal: 15,
     paddingVertical: 10,
+    width: RFValue(200),
     backgroundColor: 'white',
     borderRadius: 10,
   },
   button: {
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 10,
     padding: 15,
-    width: '60%',
+    width: RFValue(200),
     backgroundColor: '#0782F9',
     borderRadius: 10,
   },
   buttonText: {
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: RFValue(16),
     color: 'white',
   },
 });
