@@ -1,6 +1,7 @@
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   StyleSheet,
@@ -12,24 +13,31 @@ import {
 import {authentication} from '../../firebase/firebase';
 
 const HomeScreen = () => {
+  useEffect(() => {
+    getData();
+  }, []);
+
   const navigation = useNavigation();
 
-  const handleSignOut = () => {
-    authentication
-      .signOut()
-      .then(() => {
-        navigation.replace(screen);
-      })
-      .catch(error => alert(error.message));
+  const getData = () => {
+    try {
+      AsyncStorage.getItem(authentication.currentUser.email).then(value => {
+        if (value != 'stop') {
+          navigation.replace('ManScreen');
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const pressNext = () => {
-    authentication
-      .signOut()
-      .then(() => {
-        navigation.replace('ManScreen');
-      })
-      .catch(error => alert(error.message));
+  const pressNext = async text => {
+    try {
+      await AsyncStorage.setItem(authentication.currentUser.email, text);
+      navigation.navigate('ManScreen');
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
@@ -39,19 +47,22 @@ const HomeScreen = () => {
         <Text>Пол</Text>
         <TextInput style={styles.input} />
         <Text>Уровень физической подготовки</Text>
-        <TouchableOpacity onPress={pressNext} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => pressNext('Высокий')}
+          style={styles.button}>
           <Text style={styles.buttonText}>Высокий</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={pressNext} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => pressNext('Средний')}
+          style={styles.button}>
           <Text style={styles.buttonText}>Средний</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={pressNext} style={styles.button}>
+        <TouchableOpacity
+          onPress={() => pressNext('Низкий')}
+          style={styles.button}>
           <Text style={styles.buttonText}>Низкий</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
     </View>
   );
 };

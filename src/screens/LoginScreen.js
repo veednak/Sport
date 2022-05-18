@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 
 import {
+  Alert,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -21,7 +22,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [message, setMessage] = useState('');
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -34,19 +35,24 @@ const LoginScreen = () => {
   }, []);
 
   const handleSignUp = () => {
-    createUserWithEmailAndPassword(authentication, email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Registered with:', user.email);
-      })
-      .catch(error => alert(error.message));
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(email)) {
+      setMessage('');
+      createUserWithEmailAndPassword(authentication, email, password)
+        .then(userCredentials => {
+          const user = userCredentials.user;
+        })
+        .catch(error => alert(error.message));
+    } else {
+      setMessage('Некорректый логин ');
+    }
   };
 
   const handleLogin = () => {
     signInWithEmailAndPassword(authentication, email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
+        navigation.replace('Home');
       })
       .catch(error => alert(error.message));
   };
@@ -67,17 +73,18 @@ const LoginScreen = () => {
           style={styles.input}
           secureTextEntry
         />
-      </View>
+        <Text>{message}</Text>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}>
-          <Text style={styles.buttonOutlineText}>Register</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={handleLogin} style={styles.button}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleSignUp}
+            style={[styles.button, styles.buttonOutline]}>
+            <Text style={styles.buttonOutlineText}>Register</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -88,12 +95,13 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 100,
   },
   inputContainer: {
     width: RFValue(270),
   },
+
   input: {
     marginTop: 5,
     paddingHorizontal: 15,
@@ -106,6 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 40,
     width: RFValue(220),
+    marginLeft: 20,
   },
   button: {
     alignItems: 'center',
