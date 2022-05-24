@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {authentication} from '../../firebase/firebase';
 import {useNavigation} from '@react-navigation/core';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NavigationMain from '../navigations/NavigationMain';
+import NavigationStretching from '../navigations/NavigationStretching';
+import NavigationGymnastics from '../navigations/NavigationGymnastics';
 
 const ManScreen = () => {
   useEffect(() => {
@@ -14,20 +16,22 @@ const ManScreen = () => {
 
   const getData = () => {
     try {
-      AsyncStorage.getItem('Sport').then(value => {
-        if (value != 'stop') {
-          navigation.replace('Navigation2');
-        }
+      AsyncStorage.getItem('Sport').then(val => {
+        if (val == 'Атлетическая гимнастика')
+          navigation.navigate('NavigationGymnastics');
+        else if (val == 'Кроссфит') {
+          navigation.navigate('NavigationMain');
+        } else navigation.navigate('NavigationStretching');
       });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const pressNext = async text => {
+  const pressNext = async (text, nav) => {
     try {
       await AsyncStorage.setItem('Sport', text);
-      navigation.navigate('Navigation2');
+      navigation.navigate(nav);
     } catch (err) {
       alert(err);
     }
@@ -42,17 +46,19 @@ const ManScreen = () => {
       </View>
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={() => pressNext('Кроссфит')}
+          onPress={() => pressNext('Кроссфит', 'NavigationMain')}
           style={styles.button}>
           <Text style={styles.buttonText}>Кроссфит</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => pressNext('Стречинг')}
+          onPress={() => pressNext('Стречинг', 'NavigationStretching')}
           style={styles.button}>
           <Text style={styles.buttonText}>Стречинг</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => pressNext('Атлетическая гимнастика')}
+          onPress={() =>
+            pressNext('Атлетическая гимнастика', 'NavigationGymnastics')
+          }
           style={styles.button}>
           <Text style={styles.buttonText}>Атлетическая гимнастика</Text>
         </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import {
@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const MainList = () => {
+const ListGymnastics = () => {
   const navigation = useNavigation();
 
   const pressNext = () => {
@@ -19,7 +19,7 @@ const MainList = () => {
     <View style={styles.container}>
       <ScrollView>
         <TouchableOpacity onPress={pressNext} style={styles.button}>
-          <Text style={styles.buttonText}>Кроссфит</Text>
+          <Text style={styles.buttonText}>гимнастика</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Кроссфит</Text>
@@ -56,7 +56,7 @@ const MainList = () => {
   );
 };
 
-export default MainList;
+export default ListGymnastics;
 
 const styles = StyleSheet.create({
   container: {

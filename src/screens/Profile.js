@@ -90,6 +90,11 @@ const Profile = () => {
       setSport(val.item);
       storage('Sport', val.item);
       setSelectedSport(val);
+      if (val.item == 'Атлетическая гимнастика')
+        navigation.navigate('NavigationGymnastics');
+      else if (val.item == 'Кроссфит') {
+        navigation.navigate('NavigationMain');
+      } else navigation.navigate('NavigationStretching');
     };
   }
 
@@ -114,7 +119,7 @@ const Profile = () => {
         onChange={onChangeLvl()}
       />
       <SelectBox
-        label={'Комплекс упражнений: ' + sport}
+        label={'Комплекс упражнений'}
         options={K_SPORT}
         value={selectedSport}
         onChange={onChangeSport()}

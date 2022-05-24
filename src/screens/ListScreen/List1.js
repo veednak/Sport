@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
-import {authentication} from '../../../firebase/firebase';
 import {useNavigation} from '@react-navigation/core';
 
 const List1 = () => {
@@ -13,8 +12,8 @@ const List1 = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.TextName}>Название упражнения</Text>
-      <Text style={styles.Text}>
+      <Text style={styles.textName}>Название упражнения</Text>
+      <Text style={styles.text}>
         Информация о приложении ляляллялялял, столько-то подходов для этого оно
         нужно лялялял
       </Text>
@@ -34,13 +33,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
-  Text: {
+  text: {
     color: '#111111',
     marginBottom: 30,
     fontWeight: '700',
     fontSize: RFValue(16),
   },
-  TextName: {
+  textName: {
     marginBottom: 400,
   },
   button: {

@@ -1,18 +1,11 @@
 import React, {useEffect} from 'react';
-import {useNavigation} from '@react-navigation/core';
-import LoginScreen from '../screens/LoginScreen';
-import HomeScreen from '../screens/HomeScreen';
 import Profile from '../screens/Profile';
 import MainList from '../screens/ListScreen/MainList';
-import {NavigationContainer} from '@react-navigation/native';
-import Ionic from 'react-native-ionicons';
+
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
-import {authentication} from '../../firebase/firebase';
 
-const Navigation2 = () => {
-  const navigation = useNavigation();
-
+const NavigationMain = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -29,4 +22,4 @@ const Navigation2 = () => {
   );
 };
 
-export default Navigation2;
+export default NavigationMain;

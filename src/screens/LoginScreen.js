@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {authentication} from '../../firebase/firebase';
 import {useNavigation} from '@react-navigation/core';
-import {style} from '../styles/style';
 
 import {
   signInWithEmailAndPassword,

@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const MainList = () => {
+const ListStretching = () => {
   const navigation = useNavigation();
 
   const pressNext = () => {
@@ -19,7 +19,7 @@ const MainList = () => {
     <View style={styles.container}>
       <ScrollView>
         <TouchableOpacity onPress={pressNext} style={styles.button}>
-          <Text style={styles.buttonText}>Кроссфит</Text>
+          <Text style={styles.buttonText}>Стречинг</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Кроссфит</Text>
@@ -56,7 +56,7 @@ const MainList = () => {
   );
 };
 
-export default MainList;
+export default ListStretching;
 
 const styles = StyleSheet.create({
   container: {
