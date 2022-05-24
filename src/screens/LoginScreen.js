@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginTop: 100,
-    backgroundColor: '#87CEFA',
   },
   inputContainer: {
     width: RFValue(270),
