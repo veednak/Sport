@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SelectBox from 'react-native-multi-selectbox';
 
 import {
   StyleSheet,
@@ -18,6 +19,34 @@ const HomeScreen = () => {
   }, []);
 
   const navigation = useNavigation();
+
+  const K_GENDER = [
+    {
+      item: 'Мужской',
+    },
+    {
+      item: 'Женский',
+    },
+  ];
+
+  const [gender, setGender] = useState({
+    item: 'Пол:',
+  });
+
+  const storage = async (id, text) => {
+    try {
+      await AsyncStorage.setItem(id, text);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  function onChangeGender() {
+    return val => {
+      setGender(val);
+      storage('Gender', val.item);
+    };
+  }
 
   const getData = () => {
     try {
@@ -44,8 +73,14 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.textHeader}>Личные данные</Text>
-        <Text>Пол</Text>
-        <TextInput style={styles.input} />
+        <View style={styles.selectBox}>
+          <SelectBox
+            label={'Пол'}
+            options={K_GENDER}
+            value={gender}
+            onChange={onChangeGender()}
+          />
+        </View>
         <Text>Уровень физической подготовки</Text>
         <TouchableOpacity
           onPress={() => pressNext('Высокий')}
@@ -103,5 +138,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: RFValue(16),
     color: 'white',
+  },
+  selectBox: {
+    width: RFValue(200),
   },
 });

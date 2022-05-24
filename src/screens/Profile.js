@@ -13,6 +13,8 @@ const Profile = () => {
 
   const navigation = useNavigation();
   let [lvl, setLvl] = useState();
+  let [gender, setGender] = useState();
+
   let [sport, setSport] = useState();
   const [selectedTeam, setSelectedTeam] = useState({
     item: 'Выбрать другой уровень:',
@@ -51,7 +53,6 @@ const Profile = () => {
       AsyncStorage.getItem(authentication.currentUser.email).then(value => {
         if (value != null) {
           setLvl(value);
-          selectedTeam.item == lvl;
         }
       });
     } catch (error) {
@@ -62,6 +63,16 @@ const Profile = () => {
       AsyncStorage.getItem('Sport').then(value => {
         if (value != null) {
           setSport(value);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      AsyncStorage.getItem('Gender').then(value => {
+        if (value != null) {
+          setGender(value);
         }
       });
     } catch (error) {
@@ -112,18 +123,21 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <SelectBox
-        label={'Уровень физической подготовки: ' + lvl}
-        options={K_LVL}
-        value={selectedTeam}
-        onChange={onChangeLvl()}
-      />
-      <SelectBox
-        label={'Комплекс упражнений'}
-        options={K_SPORT}
-        value={selectedSport}
-        onChange={onChangeSport()}
-      />
+      <Text style={styles.textHeader}>Пол: {gender}</Text>
+      <View style={styles.selectBox}>
+        <SelectBox
+          label={'Уровень физической подготовки: ' + lvl}
+          options={K_LVL}
+          value={selectedTeam}
+          onChange={onChangeLvl()}
+        />
+        <SelectBox
+          label={'Комплекс упражнений'}
+          options={K_SPORT}
+          value={selectedSport}
+          onChange={onChangeSport()}
+        />
+      </View>
       <Text>Email: {authentication.currentUser.email}</Text>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>
         <Text style={styles.buttonText}>Sign out</Text>
@@ -139,6 +153,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textHeader: {
+    marginBottom: 5,
+    fontSize: RFValue(20),
+    color: 'black',
+  },
+  selectBox: {
+    width: RFValue(300),
+    marginVertical: RFValue(20),
   },
   button: {
     alignItems: 'center',
